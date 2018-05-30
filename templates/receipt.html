@@ -1,0 +1,151 @@
+<div class="row">
+  <div class="col-sm-6 col-sm-3-offset" id="receipt">
+    <style type="text/css">
+      * {
+        font-family: Calibri;
+      }
+
+      table {
+        page-break-after: auto
+      }
+
+      tr {
+        page-break-inside: avoid;
+        page-break-after: auto
+      }
+
+      td {
+        page-break-inside: avoid;
+        page-break-after: auto
+      }
+
+      thead {
+        display: table-header-group
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+
+      table tr th,
+      table tr td {
+        padding: 2px 4px;
+        font-size: 12px;
+      }
+
+      tr td {
+        /* border-bottom: 1px solid grey; */
+        border-right: .3px solid grey;
+      }
+
+      tr th {
+        border-bottom: .3px solid grey;
+        border-right: .3px solid grey;
+      }
+
+      .non-border {
+        border-right: 0;
+      }
+
+      .text-kecil {
+        font-size: 12px;
+      }
+
+      .text-sedang {
+        font-size: 11px;
+      }
+
+      .mb-0 {
+        margin-bottom: 0;
+      }
+
+      @media print {
+        table {
+          page-break-after: auto;
+        }
+        tr {
+          page-break-inside: avoid;
+          page-break-after: auto
+        }
+        td {
+          page-break-inside: avoid;
+          page-break-after: auto
+        }
+        thead {
+          display: table-header-group
+        }
+        /* tfoot {
+          display: table-footer-group
+        } */
+        /* table {
+          page-break-inside: auto
+        }
+        tr {
+          page-break-inside: avoid;
+          page-break-after: auto
+        } */
+        /* * {
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+        #controls,
+        .footer,
+        .footerarea {
+          display: none;
+        }
+        html,
+        body {
+          height: 100%;
+          overflow: hidden;
+          background: #FFF;
+          font-size: 9.5pt;
+        }
+
+        .template {
+          width: auto;
+          left: 0;
+          top: 0;
+        }
+        img {
+          width: 100%;
+        }
+        li {
+          margin: 0 0 10px 20px !important;
+        } */
+      }
+    </style>
+    <h4 style="text-align: center">RECEIPT</h4>
+    <h5 style="text-align: center">CV. SYIFANI ASSA MANDIRI</h5>
+    <hr>
+    <p class="text-sedang">Kpd, {{model.customer ? model.customer.name : '-'}}</p>
+    <p class="text-kecil">
+      <strong>Kasir: KASIR</strong>
+    </p>
+    <p class="text-kecil">ID: {{model.code}}</p>
+    <p class="text-kecil">Tanggal: {{model.created | date:'dd/MM/yyyy HH:mm:ss a'}}</p>
+    <table width="100%">
+      <tbody>
+        <tr>
+          <th>Barang</th>
+          <th>Harga (Rp)</th>
+          <th>Qty</th>
+          <th class="non-border">Subtotal (Rp)</th>
+        </tr>
+        <tr ng-repeat="item in model.detail" style="text-align: center">
+          <td>{{item.barang.name}}</td>
+          <td>{{item.price |number}}</td>
+          <td>{{item.qty}} {{item.satuan === 'pcs' ? '' : item.satuan}}</td>
+          <td class="non-border">{{item.subtotal |number}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <p class="text-sedang mb-0">Subtotal: {{model.grandTotal | number}}</p>
+    <p class="text-sedang mb-0">Potongan: {{model.potongan| number}}</p>
+    <p class="text-sedang mb-0">Total: {{model.grandTotal - model.potongan |number}}</p>
+    <p class="text-sedang mb-0">Uang: {{model.uang | number}}</p>
+    <p class="text-sedang mb-0">Kembalian: {{model.uang - model.grandTotal + model.potongan | number}}</p>
+    <p class="text-sedang mb-0" style="text-align: center">TERIMA KASIH</p>
+  </div>
+  <button class="btn btn-primary" ng-click="onPrint()">PRINT</button>
+</div>

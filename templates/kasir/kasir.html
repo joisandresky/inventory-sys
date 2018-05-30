@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-lg-12">
+    <rd-widget>
+      <rd-widget-header icon="fa fa-shopping-cart" title="Kasir">
+        <a ui-sref="kasir.new" class="btn primary">
+          <i class="fa fa-plus"></i> Tambah Kasir</a>
+      </rd-widget-header>
+      <rd-widget-body classes="no-padding">
+        <div class="table-responsive">
+          <table ng-table="table" class="table" show-filter="true">
+            <tbody ng-repeat="kasir in $data" class="text-center">
+              <tr>
+                <td title="'Code'" filter="{ 'code': 'text'}">{{kasir.code}}</td>
+                <td title="'Customer'" filter="{ 'customerName': 'text' }" ng-class="{'text-danger': !kasir.customer}">{{kasir.customer.name ? kasir.customerName : 'Tidak Terdaftar'}}</td>
+                <td title="'Grand Total (Rp)'">{{kasir.grandTotal |number}}</td>
+                <td title="'Tanggal'" sortable="'created'">{{kasir.created | date:'dd/MM/yyyy HH:mm:ss a'}}</td>
+                <td title="'Actions'">
+                  <div class="btn-group">
+                    <button class="btn btn-default btn-sm" ng-click="open(kasir.code, kasir)">
+                      <i class="fa fa-eye"></i>
+                    </button>
+                    <a ui-sref="kasir.receipt({id: kasir._id})" class="btn btn-info btn-sm">
+                      <i class="fa fa-print"></i>
+                    </a>
+                    <!-- <button class="btn btn-danger btn-sm" ng-click="onDelete(kasir._id, kasir)">
+                      <i class="fa fa-trash"></i>
+                    </button> -->
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </rd-widget-body>
+    </rd-widget>
+  </div>
+</div>

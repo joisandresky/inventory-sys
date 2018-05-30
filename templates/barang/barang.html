@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-lg-12">
+    <rd-widget>
+      <rd-widget-header icon="fa fa-wrench" title="Barang">
+        <a ui-sref="barang.new" class="btn primary">
+          <i class="fa fa-plus"></i> Tambah Barang</a>
+        <a class="btn btn-success" ng-click="onExportToExcel()">
+          <i class="fa fa-file-excel-o"></i> Export
+          <i class="fa fa-refresh fa-spin" ng-if="exporting"></i>
+        </a>
+      </rd-widget-header>
+      <rd-widget-body classes="no-padding">
+        <div class="table-responsive">
+          <table ng-table="table" class="table" show-filter="true">
+            <tbody ng-repeat="barang in $data" class="text-center">
+              <tr>
+                <td title="'Code'" filter="{ 'code': 'text'}">{{barang.code}}</td>
+                <td title="'Nama Barang'" filter="{'name': 'text'}">{{barang.name}}</td>
+                <td title="'Stock'">{{barang.stock.stock}}</td>
+                <td title="'Satuan'" filter="{'satuan': 'text'}">{{barang.satuan}}</td>
+                <td title="'Jenis Harga'" filter="{'jenis_harga': 'text'}">{{barang.jenis_harga}}</td>
+                <td title="'Harga Pokok (Rp)'">{{barang.primaryPrice | number}}</td>
+                <td title="'Harga Jual (Rp)'">{{barang.sellingPrice | number}}</td>
+                <td title="'Actions'">
+                  <div class="btn-group">
+                    <button class="btn btn-default btn-sm" ng-click="open(barang.code, barang)">
+                      <i class="fa fa-eye"></i>
+                    </button>
+                    <a ui-sref="barang.edit({id: barang._id})" class="btn btn-info btn-sm">
+                      <i class="fa fa-pencil"></i>
+                    </a>
+                    <button class="btn btn-danger btn-sm" ng-click="onDelete(barang._id, barang)">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </rd-widget-body>
+    </rd-widget>
+  </div>
+</div>

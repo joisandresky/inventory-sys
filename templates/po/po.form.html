@@ -1,0 +1,132 @@
+<div class="row">
+  <div class="col-lg-12">
+    <rd-widget>
+      <rd-widget-header icon="fa fa-briefcase" title="PURCHASE ORDER"></rd-widget-header>
+      <rd-widget-body>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="supplier">Supplier</label>
+              <input type="text" name="supplier" ng-model="model.supplier" class="form-control" uib-typeahead="suppliers as suppliers.name for suppliers in getSuppliers($viewValue)" typeahead-on-select="onSupplierSelected($item)">
+            </div>
+          </div>
+          <div class="col-md-1">
+            <div class="form-group">
+              <label for="tempo">Tempo?</label>
+              <input type="checkbox" name="tempo" ng-model="holder.tempo" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-3" ng-if="holder.tempo">
+            <div class="form-group">
+              <label for="tempo">Jatuh Tempo</label>
+              <input type="date" name="tempo" class="form-control">
+            </div>
+          </div>
+        </div>
+        <hr>
+        <form ng-submit="onAddBarang(form)" name="form">
+          <div class="row">
+            <div class="col-md-3 form-group">
+              <label for="barang">Barang</label>
+              <input type="text" name="code" ng-model="holder.barang" class="form-control" placeholder="Cari Barang" uib-typeahead="barang as (barang.code + ' - ' +barang.name) for barang in getBarang($viewValue)" autocomplete="off" typeahead-on-select="onBarangSelected($item)" required>
+            </div>
+            <div class="col-md-2 form-group">
+              <label for="qty">QTY</label>
+              <input type="number" name="qty" ng-model="holder.qty" class="form-control" required>
+            </div>
+            <div class="col-md-2 form-group">
+              <label for="satuan">Satuan</label>
+              <select name="satuan" ng-model="holder.satuan" class="form-control" required>
+                <option value="pcs">pcs</option>
+                <option value="lsn">Lusin</option>
+                <option value="kodi">Kodi</option>
+                <option value="gross">Gross</option>
+                <option value="ikat">Ikat</option>
+                <option value="ball">Ball</option>
+                <option value="set">Set</option>
+                <option value="dus">Dus</option>
+              </select>
+            </div>
+            <div class="col-md-2 form-group">
+              <label for="harga">Harga Pokok</label>
+              <input type="number" name="price" ng-model="holder.price" class="form-control" required>
+            </div>
+            <div class="col-md-3 form-group">
+              <label for="tambah">Tambah</label>
+              <button type="submit" class="btn btn-primary">
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Kode Barang</th>
+                    <th>Nama Barang</th>
+                    <th>Qty</th>
+                    <th>Satuan</th>
+                    <th>Harga Satuan (Rp)</th>
+                    <th>Subtotal (Rp)</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="item in model.detail">
+                    <td>{{item.code}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.qty}}</td>
+                    <td>{{item.satuan}}</td>
+                    <td>{{item.price | number}}</td>
+                    <td>{{item.subtotal() | number}}</td>
+                    <td>
+                      <div class="btn-group">
+                        <button class="btn btn-success btn-sm" ng-click="onIncreaseByOne($index)">
+                          <i class="fa fa-plus"></i>
+                        </button>
+                        <button class="btn btn-warning btn-sm" ng-click="onDecreaseByOne($index)">
+                          <i class="fa fa-minus"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm" ng-click="onRemoveItem($index)">
+                          <i class="fa fa-remove"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="row">
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label for="uang">Diskon</label>
+                    <input type="number" name="dics" ng-model="model.disc" ng-change="handleDisc()" class="form-control" placeholder="e.g. 10%"> &nbsp;
+                  </div>
+                </div>
+                <div class="col-lg-4 col-lg-offset-4">
+                  <span>
+                    <h3>Total: Rp. {{total() | number}}</h3>
+                    <h3>Total (After Disc): Rp. {{totalAD() |number}}</h3>
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <label for="uang">Jumlah Pembayaran</label>
+                  <input type="number" name="uang" ng-model="model.uang" class="form-control">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-2">
+                  <button class="btn btn-primary btn-lg" ng-click="onSave(form)">PROSES</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </rd-widget-body>
+    </rd-widget>
+  </div>
+</div>

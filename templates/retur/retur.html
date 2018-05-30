@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-lg-12">
+    <rd-widget>
+      <rd-widget-header icon="fa fa-refresh" title="Retur">
+        <a ui-sref="retur.new" class="btn primary">
+          <i class="fa fa-plus"></i> Tambah Retur</a>
+      </rd-widget-header>
+      <rd-widget-body classes="no-padding">
+        <div class="table-responsive">
+          <table ng-table="table" class="table" show-filter="true">
+            <tbody ng-repeat="retur in $data" class="text-center">
+              <tr>
+                <td title="'Code'" filter="{ 'code': 'text'}">{{retur.code}}</td>
+                <td title="'Customer'" ng-class="{'text-danger': !retur.customer}">{{retur.customer.name ? retur.customer.name : 'Tidak Terdaftar'}}</td>
+                <td title="'Grand Total (Rp)'">{{retur.total|number}}</td>
+                <td title="'Diskon'">{{retur.disc}}%</td>
+                <td title="'Tanggal'">{{retur.created | date:'dd/MM/yyyy HH:mm:ss a'}}</td>
+                <td title="'Actions'">
+                  <div class="btn-group">
+                    <button class="btn btn-default btn-sm" ng-click="open(retur.code, retur)">
+                      <i class="fa fa-eye"></i>
+                    </button>
+                    <!-- <a ui-sref="retur.edit({id: retur._id})" class="btn btn-info btn-sm">
+                      <i class="fa fa-pencil"></i>
+                    </a> -->
+                    <button class="btn btn-danger btn-sm" ng-click="onDelete(retur._id, retur)">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </rd-widget-body>
+    </rd-widget>
+  </div>
+</div>

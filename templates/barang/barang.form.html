@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="col-lg-6 col-lg-offset-3">
+    <rd-widget>
+      <rd-widget-header icon="fa fa-wrench" title="{{!edit ? 'Tambah Barang' : 'Edit Barang'}}"></rd-widget-header>
+      <rd-widget-body>
+        <form class="form-horizontal" name="form" ng-submit="onSave(form)">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Kode Barang</label>
+            <div class="col-sm-10">
+              <input type="text" name="code" ng-model="model.code" style="text-transform:uppercase" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Nama Barang</label>
+            <div class="col-sm-10">
+              <input type="text" name="name" ng-model="model.name" class="form-control">
+            </div>
+          </div>
+          <div class="form-group" ng-if="!edit">
+            <label class="col-sm-2 control-label">Stock</label>
+            <div class="col-sm-10">
+              <input type="number" name="stock" ng-model="model.stock" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="satuan">Satuan</label>
+            <!-- sementara input text -->
+            <div class="col-sm-10">
+              <!-- <input type="text" name="satuan" ng-model="model.satuan" class="form-control"> -->
+              <select name="satuan" ng-model="model.satuan" class="form-control" required>
+                <option value="pcs">pcs</option>
+                <option value="lsn">Lusin</option>
+                <option value="kodi">Kodi</option>
+                <option value="gross">Gross</option>
+                <option value="ikat">Ikat</option>
+                <option value="ball">Ball</option>
+                <option value="set">Set</option>
+                <option value="dus">Dus</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="jenis_harga">Jenis Harga</label>
+            <div class="col-sm-10">
+              <select name="jenis_harga" ng-model="model.jenis_harga" class="form-control">
+                <option value="Toko">Toko</option>
+                <option value="Ecer">Ecer</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Harga Pokok (Rp)</label>
+            <div class="col-sm-10">
+              <input type="number" name="primaryPrice" ng-model="model.primaryPrice" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Harga Jual (Rp)</label>
+            <div class="col-sm-10">
+              <input type="number" name="sellingPrice" ng-model="model.sellingPrice" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-primary" ng-disabled="form.$pristine">
+                <i class="fa fa-send"></i> SIMPAN</button>
+              <button type="reset" class="btn btn-warning" ng-hide="edit">
+                <i class="fa fa-refresh"></i> RESET</button>
+            </div>
+          </div>
+        </form>
+      </rd-widget-body>
+    </rd-widget>
+  </div>
+</div>

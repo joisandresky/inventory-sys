@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-lg-12">
+    <rd-widget>
+      <rd-widget-header icon="fa fa-balance-scale" title="Produk">
+        <a ui-sref="product.new" class="btn primary">
+          <i class="fa fa-plus"></i> Tambah Produk</a>
+      </rd-widget-header>
+      <rd-widget-body classes="no-padding">
+        <div class="table-responsive">
+          <table ng-table="table" class="table" show-filter="true">
+            <tbody class="text-center">
+              <tr>
+                <td title="'Code'" filter="{ 'code': 'text'}">PRO1805300001</td>
+                <td title="'Nama Produk'">Produk 1</td>
+                <td title="'Jenis Produk'">JENIS PRODUK 1</td>
+                <td title="'Qty'">100</td>
+                <td title="'Created'">30/05/2018 11:30</td>
+                <td title="'Actions'">
+                  <div class="btn-group">
+                    <button class="btn btn-default btn-sm" ng-click="open(product.code, product)">
+                      <i class="fa fa-eye"></i>
+                    </button>
+                    <a ui-sref="product.edit({id: product._id})" class="btn btn-info btn-sm">
+                      <i class="fa fa-pencil"></i>
+                    </a>
+                    <button class="btn btn-danger btn-sm" ng-click="onDelete(product._id, product)">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </rd-widget-body>
+    </rd-widget>
+  </div>
+</div>

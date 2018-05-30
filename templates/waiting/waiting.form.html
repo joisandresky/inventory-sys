@@ -1,0 +1,148 @@
+<div class="row">
+  <div class="col-lg-12">
+    <rd-widget>
+      <rd-widget-header icon="fa fa-list-ol" title="WAITING LIST"></rd-widget-header>
+      <rd-widget-body>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="customer">Customer</label>
+              <input type="text" name="customer" ng-model="model.customer" class="form-control" uib-typeahead="customers as customers.name for customers in getCustomers($viewValue)" typeahead-on-select="onCustomerSelected($item)" ng-disabled="!holder.isUser">
+            </div>
+          </div>
+          <div class="col-md-1">
+            <div class="form-group">
+              <label for="pelanggan">Pelanggan?</label>
+              <input type="checkbox" name="isUser" ng-model="holder.isUser" class="form-control">
+            </div>
+          </div>
+        </div>
+        <hr>
+        <form ng-submit="onAddBarang(form)" name="form">
+          <div class="row">
+            <div class="col-md-4 form-group">
+              <input type="text" name="code" ng-model="holder.code" class="form-control" style="text-transform: uppercase" title="Masukan Kode Barang terlebih dahulu" placeholder="Kode Barang" required>
+            </div>
+            <div class="col-md-4 form-group">
+              <button type="submit" class="btn btn-primary">
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Kode Barang</th>
+                    <th>Nama Barang</th>
+                    <th>Qty</th>
+                    <th>Satuan</th>
+                    <th>Harga Satuan (Rp)</th>
+                    <th>Subtotal (Rp)</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="item in model.items">
+                    <td>{{edit ? item.barang.code : item.code}}</td>
+                    <td>{{edit ? item.barang.name : item.name}}</td>
+                    <td>{{item.qty}}</td>
+                    <td>{{item.satuan}}</td>
+                    <td>{{item.price | number}}</td>
+                    <td>{{ edit ? item.qty * item.price : item.subtotal() | number}}</td>
+                    <td>
+                      <div class="btn-group">
+                        <button class="btn btn-success btn-sm" ng-click="onIncreaseByOne($index)" ng-if="!edit">
+                          <i class="fa fa-plus"></i>
+                        </button>
+                        <button class="btn btn-warning btn-sm" ng-click="onDecreaseByOne($index)" ng-if="!edit">
+                          <i class="fa fa-minus"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm" ng-click="onRemoveItem($index)">
+                          <i class="fa fa-remove"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div id="tambahan" ng-if="edit && model.extras.length > 0">
+                <hr>
+                <h4>Barang Tambahan</h4>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Kode Barang</th>
+                      <th>Nama Barang</th>
+                      <th>Qty</th>
+                      <th>Satuan</th>
+                      <th>Harga Satuan (Rp)</th>
+                      <th>Subtotal (Rp)</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="item in model.extras">
+                      <td>{{item.code}}</td>
+                      <td>{{item.name}}</td>
+                      <td>{{item.qty}}</td>
+                      <td>{{item.satuan}}</td>
+                      <td>{{item.price | number}}</td>
+                      <td>{{item.qty * item.price | number}}</td>
+                      <td>
+                        <div class="btn-group">
+                          <button class="btn btn-success btn-sm" ng-click="extrasIncreaseOne($index)">
+                            <i class="fa fa-plus"></i>
+                          </button>
+                          <button class="btn btn-warning btn-sm" ng-click="extrasDecreaseOne($index)">
+                            <i class="fa fa-minus"></i>
+                          </button>
+                          <button class="btn btn-danger btn-sm" ng-click="onExtrasRemoveItem($index)">
+                            <i class="fa fa-remove"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="form-group" ng-if="edit">
+                    <label for="uang">Jumlah Uang</label>
+                    <input type="number" name="money" ng-model="holder.uang" ng-change="kembalian()" id="uang" class="form-control" ng-disabled="model.items.length <= 0">
+                  </div>
+                  <div class="form-group" ng-if="edit">
+                    <label for="potongan">Potongan Harga</label>
+                    <input type="number" name="potongan" ng-model="model.potongan" ng-change="total()" class="form-control">
+                  </div>
+                  <div class="form-group">
+                    <label for="kembalian">Kembalian</label>
+                    <h3>Rp. {{kembalian() | number}}</h3>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-lg-offset-4">
+                  <span>
+                    <h3>Total: Rp. {{total() | number}}</h3>
+                  </span>
+                </div>
+              </div>
+              <div class="row">
+                <button class="btn btn-primary btn-lg col-lg-2" ng-click="onSave()" ng-if="!edit">
+                  PROSES
+                </button>
+                <button class="btn btn-success btn-lg col-lg-2" ng-click="onBayar()" ng-if="edit">
+                  BAYAR
+                </button>
+                <button class="btn btn-danger btn-lg col-lg-2" ng-click="onCancel()" ng-if="edit">CANCEL</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </rd-widget-body>
+    </rd-widget>
+  </div>
+</div>

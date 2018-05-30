@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-lg-12">
+    <rd-widget>
+      <rd-widget-header icon="fa fa-truck" title="Supplier">
+        <a ui-sref="supplier.new" class="btn primary">
+          <i class="fa fa-plus"></i> Tambah Supplier</a>
+      </rd-widget-header>
+      <rd-widget-body classes="no-padding">
+        <div class="table-responsive">
+          <table ng-table="table" class="table" show-filter="true">
+            <tbody ng-repeat="supplier in $data" class="text-center">
+              <tr>
+                <td title="'Code'" filter="{ 'code': 'text'}">{{supplier.code}}</td>
+                <td title="'Name'" filter="{'name': 'text'}">{{supplier.name}}</td>
+                <td title="'Addresses'">{{supplier.address}}</td>
+                <td title="'Phone'">{{supplier.phone}}</td>
+                <td title="'Actions'">
+                  <div class="btn-group">
+                    <button class="btn btn-default btn-sm" ng-click="open(supplier.code, supplier)">
+                      <i class="fa fa-eye"></i>
+                    </button>
+                    <a ui-sref="supplier.edit({id: supplier._id})" class="btn btn-info btn-sm">
+                      <i class="fa fa-pencil"></i>
+                    </a>
+                    <button class="btn btn-danger btn-sm" ng-click="onDelete(supplier._id, supplier)">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </rd-widget-body>
+    </rd-widget>
+  </div>
+</div>

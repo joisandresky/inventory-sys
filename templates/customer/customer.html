@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-lg-12">
+    <rd-widget>
+      <rd-widget-header icon="fa fa-users" title="Customer">
+        <a ui-sref="customer.new" class="btn primary">
+          <i class="fa fa-plus"></i> Tambah Customer</a>
+        <a ng-click="onExportToExcel()" class="btn btn-success">
+          <i class="fa fa-file-excel-o"></i> Export
+          <i class="fa fa-refresh fa-spin" ng-if="exporting"></i>
+        </a>
+      </rd-widget-header>
+      <rd-widget-body classes="no-padding">
+        <div class="table-responsive">
+          <table ng-table="table" class="table" show-filter="true">
+            <tbody ng-repeat="customer in $data" class="text-center">
+              <tr>
+                <td title="'Code'" filter="{ 'code': 'text'}">{{customer.code}}</td>
+                <td title="'Name'" filter="{'name': 'text'}">{{customer.name}}</td>
+                <td title="'Addresses'">{{customer.address}}</td>
+                <td title="'Phone'">{{customer.phone}}</td>
+                <td title="'Actions'">
+                  <div class="btn-group">
+                    <button class="btn btn-default btn-sm" ng-click="open(customer.code, customer)">
+                      <i class="fa fa-eye"></i>
+                    </button>
+                    <a ui-sref="customer.edit({id: customer._id})" class="btn btn-info btn-sm">
+                      <i class="fa fa-pencil"></i>
+                    </a>
+                    <button class="btn btn-danger btn-sm" ng-click="onDelete(customer._id, customer)">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </rd-widget-body>
+    </rd-widget>
+  </div>
+</div>

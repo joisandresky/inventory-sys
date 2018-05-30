@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-lg-6 col-lg-offset-3">
+    <rd-widget>
+      <rd-widget-header icon="fa fa-truck" title="{{!edit ? 'Tambah Supplier' : 'Edit Supplier'}}"></rd-widget-header>
+      <rd-widget-body>
+        <!-- <div class="row"> -->
+        <form class="form-horizontal" name="form" ng-submit="onSave(form)">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Nama</label>
+            <div class="col-sm-10">
+              <input type="text" name="name" ng-model="model.name" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Alamat</label>
+            <div class="col-sm-10">
+              <input type="text" name="alamat" ng-model="model.address" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">No. Telp</label>
+            <div class="col-sm-10">
+              <input type="text" name="phone" ng-model="model.phone" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-primary" ng-disabled="form.$pristine">
+                <i class="fa fa-send"></i> SIMPAN</button>
+              <button type="reset" class="btn btn-warning" ng-hide="edit">
+                <i class="fa fa-refresh"></i> RESET</button>
+            </div>
+          </div>
+        </form>
+        <!-- </div> -->
+      </rd-widget-body>
+    </rd-widget>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-lg-12">
+    <rd-widget>
+      <rd-widget-header icon="fa fa-balance-scale" title="Bill Of Material Gudang Produksi">
+        <a ui-sref="productionBOM.new" class="btn primary">
+          <i class="fa fa-plus"></i> Tambah Bill Of Material</a>
+      </rd-widget-header>
+      <rd-widget-body classes="no-padding">
+        <div class="table-responsive">
+          <table ng-table="table" class="table" show-filter="true">
+            <tbody class="text-center">
+              <tr>
+                <td title="'No BOM'" filter="{ 'code': 'text'}">BOMGP1805300001</td>
+                <td title="'Created'">30/05/2018 11:30</td>
+                <td title="'Actions'">
+                  <div class="btn-group">
+                    <button class="btn btn-default btn-sm" ng-click="open(productionBOM.code, productionBOM)">
+                      <i class="fa fa-eye"></i>
+                    </button>
+                    <a ui-sref="productionBOM.edit({id: productionBOM._id})" class="btn btn-info btn-sm">
+                      <i class="fa fa-pencil"></i>
+                    </a>
+                    <button class="btn btn-danger btn-sm" ng-click="onDelete(productionBOM._id, productionBOM)">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </rd-widget-body>
+    </rd-widget>
+  </div>
+</div>

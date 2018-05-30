@@ -1,0 +1,46 @@
+<table class="table table-striped table-responsive">
+  <tbody>
+    <tr>
+      <th>Code</th>
+      <td>{{model.code}}</td>
+    </tr>
+    <tr>
+      <th>Nama</th>
+      <td>{{model.name}}</td>
+    </tr>
+    <tr>
+      <th>Alamat</th>
+      <td>{{model.address}}</td>
+    </tr>
+    <tr>
+      <th>No. Telp</th>
+      <td>{{model.phone}}</td>
+    </tr>
+    <tr>
+      <th>Transaksi</th>
+      <td>
+        <p>Pembelian: (Rp) {{model.transaction.penjualan | number}}</p>
+        <p>Hutang: (Rp) {{model.transaction.hutang | number}}</p>
+      </td>
+    </tr>
+    <tr>
+      <th>Histori Hutang</th>
+      <td>
+        <label ng-if="model.hutangLogs.length === 0" class="label-success">Belum Ada :)</label>
+        <p ng-repeat="hutang in model.hutangLogs">
+          <span class="label label-danger">Rp. {{hutang.total | number}} - {{hutang.created | date:'dd/MM/yyyy HH:mm:ss a'}}</span>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table table-responsive">
+  <tbody>
+    <tr>
+      <th>
+        <p class="small">Created On: {{model.created | date:'dd/MM/yyyy HH:mm:ss a'}}</p>
+      </th>
+    </tr>
+  </tbody>
+</table>
